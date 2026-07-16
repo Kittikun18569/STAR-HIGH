@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ฐานข้อมูลนักเตะ</title>
+
+
+<style>
+
+/* =====================
+   BASIC
+===================== */
+
+*{
+    box-sizing:border-box;
+}
+
+
+body{
+
+    margin:0;
+
+    font-family:
+    "Arial",
+    "Tahoma",
+    sans-serif;
+
+    background:#f2f4f7;
+
+    color:#222;
+
+}
+
+
+
+/* =====================
+   HEADER
+===================== */
+
+
+header{
+
+    background:#102a43;
+
+    color:white;
+
+    padding:25px;
+
+}
+
+
+header h1{
+
+    margin:0;
+
+    font-size:30px;
+
+}
+
+
+header p{
+
+    margin-top:8px;
+
+    color:#dbeafe;
+
+}
+
+
+
+
+
+/* =====================
+   FILTER
+===================== */
+
+
+.controls{
+
+    max-width:1200px;
+
+    margin:20px auto;
+
+    background:white;
+
+    padding:15px;
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    border-radius:10px;
+
+    box-shadow:
+    0 2px 8px rgba(0,0,0,.15);
+
+}
+
+
+
+select,
+input{
+
+
+    padding:12px;
+
+    border:
+
+    1px solid #ddd;
+
+    border-radius:6px;
+
+    font-size:15px;
+
+}
+
+
+
+input{
+
+    flex:1;
+
+    min-width:220px;
+
+}
+
+
+
+#count{
+
+
+    background:#102a43;
+
+    color:white;
+
+    padding:12px 18px;
+
+    border-radius:6px;
+
+}
+
+
+
+
+
+/* =====================
+   TABLE
+===================== */
+
+
+.container{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:10px;
+
+}
+
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:white;
+
+    overflow:hidden;
+
+    border-radius:10px;
+
+    box-shadow:
+    0 2px 10px rgba(0,0,0,.15);
+
+}
+
+
+
+th{
+
+    background:#102a43;
+
+    color:white;
+
+    padding:15px;
+
+}
+
+
+
+td{
+
+
+    padding:14px;
+
+    text-align:center;
+
+    border-bottom:
+
+    1px solid #eee;
+
+}
+
+
+
+tr:hover{
+
+    background:#f8fafc;
+
+}
+
+
+
+
+
+/* =====================
+   PLAYER
+===================== */
+
+
+.name{
+
+    font-size:17px;
+
+    font-weight:bold;
+
+}
+
+
+
+.ovr{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    color:#102a43;
+
+}
+
+
+
+
+
+/* =====================
+   TIER
+===================== */
+
+
+.badge{
+
+    display:inline-block;
+
+    padding:6px 16px;
+
+    border-radius:5px;
+
+    font-weight:bold;
+
+}
+
+
+
+.S{
+
+    background:#ffd700;
+
+    color:#000;
+
+}
+
+
+.A{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+.B{
+
+    background:#16a34a;
+
+    color:white;
+
+}
+
+
+.C{
+
+    background:#777;
+
+    color:white;
+
+}
+
+
+
+
+
+/* =====================
+   MOBILE
+===================== */
+
+
+@media(max-width:700px){
+
+
+
+header h1{
+
+    font-size:22px;
+
+}
+
+
+
+.controls{
+
+    margin:10px;
+
+}
+
+
+
+select,
+input{
+
+    width:100%;
+
+}
+
+
+
+#count{
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+
+
+
+table,
+thead,
+tbody,
+th,
+td,
+tr{
+
+    display:block;
+
+}
+
+
+
+thead{
+
+    display:none;
+
+}
+
+
+
+
+tr{
+
+
+    background:white;
+
+    margin-bottom:15px;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    box-shadow:
+
+    0 2px 8px rgba(0,0,0,.12);
+
+}
+
+
+
+td{
+
+
+    display:flex;
+
+    justify-content:space-between;
+
+    text-align:right;
+
+    border:none;
+
+    padding:10px;
+
+}
+
+
+
+td::before{
+
+
+    content:attr(data-label);
+
+    font-weight:bold;
+
+    color:#555;
+
+}
+
+
+
+}
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+
+<header>
+
+
+<h1>
+⚽ STAR HIGH SHOP By I HERE POO
+</h1>
+
+
+<p>
+นักเตะแข้งสายฟ้า
+</p>
+
+
+</header>
+
+
+
+
+
+<div class="controls">
+
+
+<select id="country">
+
+<option value="all">
+ทุกประเทศ
+</option>
+
+</select>
+
+
+
+<select id="year">
+
+<option value="all">
+ทุกปี
+</option>
+
+</select>
+
+
+
+
+<select id="position">
+
+<option value="all">
+ทุกตำแหน่ง
+</option>
+
+</select>
+
+
+
+<input 
+id="search"
+placeholder="ค้นหาชื่อนักเตะ..."
+>
+
+
+
+<div id="count">
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="container">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>ประเทศ</th>
+
+<th>ปี</th>
+
+<th>ชื่อ</th>
+
+<th>ค่าพลัง</th>
+
+<th>Tier</th>
+
+<th>ตำแหน่ง</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="playerTable">
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+
+/* =====================
+   DATABASE
+===================== */
+
+
+const players=[
+
+
+{
+country:"สเปน",
+year:2010,
+name:"PUYOL",
+ovr:95,
+position:"CB"
+},
+
+
+{
+country:"นอร์เวย์",
+year:2026,
+name:"HAALAND",
+ovr:96,
+position:"ST"
+},
+
+
+{
+country:"[บราซิล]",
+year:2006,
+name:"KAKA",
+ovr:95,
+position:"CM"
+},
+
+
+{
+country:"สเปน",
+year:2026,
+name:"PEDRI",
+ovr:97,
+position:"CM"
+},
+
+
+{
+country:"อียิปต์",
+year:2018,
+name:"SALAH",
+ovr:95,
+position:"RW"
+},
+
+
+{
+country:"ฝรั่งเศส",
+year:2026,
+name:"MBAPPE",
+ovr:97,
+position:"ST"
+},
+
+
+{
+country:"อาร์เจนตินา",
+year:2014,
+name:"MESSI",
+ovr:97,
+position:"RW/CM"
+},
+
+
+{
+country:"โปรตุเกส",
+year:2018,
+name:"RONALDO",
+ovr:99,
+position:"LW"
+},
+
+
+{
+country:"เยอรมนี",
+year:2014,
+name:"NEURR",
+ovr:96,
+position:"GK"
+},
+
+
+{
+country:"ฝรั่งเศส",
+year:2006,
+name:"ZIDANE",
+ovr:99,
+position:"CM"
+},
+
+
+{
+country:"โปรตุเกส",
+year:2014,
+name:"RONALDO",
+ovr:95,
+position:"LW/LM"
+},
+
+
+{
+country:"บราซิล",
+year:2006,
+name:"R9",
+ovr:98,
+position:"ST"
+},
+
+
+
+];
+
+
+
+
+
+
+/* =====================
+   ELEMENT
+===================== */
+
+
+const country =
+document.getElementById("country");
+
+
+const year =
+document.getElementById("year");
+
+
+const position =
+document.getElementById("position");
+
+
+const search =
+document.getElementById("search");
+
+
+const table =
+document.getElementById("playerTable");
+
+
+const count =
+document.getElementById("count");
+
+
+
+
+
+
+
+/* =====================
+   CREATE OPTION
+===================== */
+
+
+function addOption(select,data){
+
+
+let list=[...new Set(data)];
+
+
+list.sort();
+
+
+
+list.forEach(item=>{
+
+
+let option=document.createElement("option");
+
+
+option.value=item;
+
+
+option.textContent=item;
+
+
+select.appendChild(option);
+
+
+
+});
+
+
+}
+
+
+
+
+addOption(
+country,
+players.map(p=>p.country)
+);
+
+
+
+addOption(
+year,
+players.map(p=>p.year)
+);
+
+
+
+addOption(
+position,
+players.map(p=>p.position)
+);
+
+
+
+
+
+
+
+
+/* =====================
+   TIER SYSTEM
+===================== */
+
+
+function getTier(ovr){
+
+
+if(ovr>=100){
+
+return "S";
+
+}
+
+
+if(ovr>=95){
+
+return "A";
+
+}
+
+
+if(ovr>=90){
+
+return "B";
+
+}
+
+
+return "C";
+
+
+}
+
+
+
+
+
+
+
+/* =====================
+   DISPLAY
+===================== */
+
+
+function render(){
+
+
+let keyword =
+search.value.toLowerCase();
+
+
+
+let result =
+players.filter(player=>{
+
+
+return (
+
+
+country.value=="all"
+||
+player.country==country.value
+
+
+)
+
+&&
+
+
+(
+
+
+year.value=="all"
+||
+player.year==year.value
+
+
+)
+
+
+&&
+
+
+(
+
+
+position.value=="all"
+||
+player.position==position.value
+
+
+)
+
+
+&&
+
+
+player.name
+.toLowerCase()
+.includes(keyword)
+
+
+
+});
+
+
+
+
+result.sort(
+(a,b)=>b.ovr-a.ovr
+);
+
+
+
+
+table.innerHTML="";
+
+
+
+
+
+result.forEach(player=>{
+
+
+table.innerHTML += `
+
+
+<tr>
+
+
+<td data-label="ประเทศ">
+
+${player.country}
+
+</td>
+
+
+
+<td data-label="ปี">
+
+${player.year}
+
+</td>
+
+
+
+<td data-label="ชื่อ">
+
+
+<div class="name">
+
+${player.name}
+
+</div>
+
+
+</td>
+
+
+
+<td data-label="ค่าพลัง">
+
+
+<div class="ovr">
+
+${player.ovr}
+
+</div>
+
+
+</td>
+
+
+
+
+<td data-label="Tier">
+
+
+<span class="badge ${getTier(player.ovr)}">
+
+${getTier(player.ovr)}
+
+</span>
+
+
+</td>
+
+
+
+
+<td data-label="ตำแหน่ง">
+
+${player.position}
+
+</td>
+
+
+
+</tr>
+
+
+`;
+
+
+});
+
+
+
+
+
+count.innerHTML=
+`พบ ${result.length} คน`;
+
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   EVENT
+===================== */
+
+
+country.addEventListener(
+"change",
+render
+);
+
+
+year.addEventListener(
+"change",
+render
+);
+
+
+
+position.addEventListener(
+"change",
+render
+);
+
+
+
+search.addEventListener(
+"input",
+render
+);
+
+
+
+
+
+render();
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
